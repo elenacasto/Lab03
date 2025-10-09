@@ -1,5 +1,4 @@
 import csv
-from autonoleggio import Autonoleggio
 from datetime import datetime
 
 class Autonoleggio:
@@ -8,8 +7,14 @@ class Autonoleggio:
         self.nome = nome
         self.responsabile = responsabile
 
-        autonoleggio = Autonoleggio(self.nome, self.responsabile)
 
+class Automobili:
+    def __init__(self, codice, marca, modello, anno, num_posti):
+        self.codice = codice
+        self.marca = marca
+        self.modello = modello
+        self.anno = anno
+        self.num_posti = num_posti
 
     def carica_file_automobili(self, file_path):
         """Carica le auto dal file"""
@@ -17,7 +22,7 @@ class Autonoleggio:
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
                 reader = csv.reader(file, delimiter=',')
-                automobili = []
+                self.automobili = []
                 for row in reader:
                     self.codice = row[0]
                     self.marca = row[1]
@@ -25,7 +30,8 @@ class Autonoleggio:
                     self.anno = int(row[3])
                     self.num_posti = int(row[4])
 
-                    automobili.append([self.codice, self.marca, self.modello, self.anno, self.num_posti])
+                    auto = Automobili(self.codice, self.marca, self.modello, self.anno, self.num_posti)
+                    self.automobili.append(auto)
 
 
         except FileNotFoundError:
@@ -34,14 +40,12 @@ class Autonoleggio:
 
     def aggiungi_automobile(self, marca, modello, anno, num_posti):
         """Aggiunge un'automobile nell'autonoleggio: aggiunge solo nel sistema e non aggiorna il file"""
+        codice = [int(a.codice[1:]) for a in self.automobili if a.codice.startswith("A")]
+        nuovo_codice = max(codice) + 1
 
-        nuova_auto = [self.marca, self.modello, self.anno, self.num_posti]
-
-        for self.codice in Autonoleggio.__dict__.keys():
-            if nuova_auto not in Autonoleggio.__dict__[self.codice]:
-                Autonoleggio.__repr__(nuova_auto)
-            else:
-                print("Automobile non può essere aggiunta")
+        nuova_auto = Automobili(nuovo_codice, marca, modello, anno, num_posti)
+        self.automobili.append(nuova_auto)
+        return nuova_auto
 
 
     def automobili_ordinate_per_marca(self):
@@ -69,6 +73,7 @@ class Autonoleggio:
         print("5. Noleggia automobile")
         print("6. Termina noleggio automobile")
         print("7. Esci")
+
         return input("Scegli un'opzione >> ")
 
     def main():
