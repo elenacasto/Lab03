@@ -8,9 +8,7 @@ class Autonoleggio:
         self.nome = nome
         self.responsabile = responsabile
 
-        automobili = Autonoleggio()
-        automobili.nome = self.nome
-        automobili.responsabile = self.responsabile
+        autonoleggio = Autonoleggio(self.nome, self.responsabile)
 
 
     def carica_file_automobili(self, file_path):
@@ -19,12 +17,15 @@ class Autonoleggio:
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
                 reader = csv.reader(file, delimiter=',')
+                automobili = []
                 for row in reader:
                     self.codice = row[0]
                     self.marca = row[1]
                     self.modello = row[2]
                     self.anno = int(row[3])
                     self.num_posti = int(row[4])
+
+                    automobili.append([self.codice, self.marca, self.modello, self.anno, self.num_posti])
 
 
         except FileNotFoundError:
