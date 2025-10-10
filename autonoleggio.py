@@ -13,7 +13,6 @@ class Automobili:
     def __str__(self):
         return f"{self.codice} - {self.marca} {self.modello} ({self.anno}), {self.num_posti} posti"
 
-
 class Autonoleggio:
     def __init__(self, nome, responsabile):
         """Inizializza gli attributi e le strutture dati"""
