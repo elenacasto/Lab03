@@ -2,9 +2,6 @@ import csv
 from datetime import datetime
 from logging import exception
 
-
-# METODI GETTER E SETTER, DA VEDERE BENE + COLLEZIONI DI OGGETTI
-
 class Automobili:
     def __init__(self, codice, marca, modello, anno, num_posti):
         self.codice = codice
