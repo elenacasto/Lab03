@@ -54,7 +54,7 @@ class Autonoleggio:
 
     def automobili_ordinate_per_marca(self):
         """Ordina le automobili per marca in ordine alfabetico"""
-        return sorted(self.automobili, key=lambda a: a.marca ) #corretto
+        return sorted(self.automobili, key=lambda a: a.marca )
 
     def nuovo_noleggio(self, data, id_automobile, cognome_cliente):
         """Crea un nuovo noleggio"""
